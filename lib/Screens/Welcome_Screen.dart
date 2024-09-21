@@ -34,7 +34,7 @@ class WelcomeScreen extends StatelessWidget {
                   child: Image.asset(
                     'assets/images/books.png', // Your image path here
                     fit: BoxFit.cover,
-                    width: 320,
+                    width: 250,
                   ),
                 ),
               ),
@@ -42,8 +42,6 @@ class WelcomeScreen extends StatelessWidget {
             // Text Section
             Expanded(
               flex: 3,
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -107,7 +105,6 @@ class WelcomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
               ),
             ),
           ],
