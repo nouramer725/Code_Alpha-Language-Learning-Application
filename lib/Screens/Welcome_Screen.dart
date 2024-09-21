@@ -15,7 +15,7 @@ class WelcomeScreen extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.red, // gradient color from top
+              Colors.pinkAccent, // gradient color from top
               Colors.blue, // gradient color to bottom
             ],
           ),
@@ -89,7 +89,7 @@ class WelcomeScreen extends StatelessWidget {
                             );
                           }, // Trigger the callback
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.redAccent[100], // Button color
+                            backgroundColor: Colors.purple[200], // Button color
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 50, vertical: 15),
                             shape: RoundedRectangleBorder(
