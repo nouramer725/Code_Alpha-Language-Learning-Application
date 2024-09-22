@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:flutter/material.dart';
 
 class GamifiedLearningScreen extends StatefulWidget {
   @override
@@ -29,6 +29,7 @@ class _GamifiedLearningScreenState extends State<GamifiedLearningScreen> {
       Question("What is the vowel sound for 'ㅡ'?", ["eu", "u", "o", "i"], "eu"),
       Question("What is the vowel sound for 'ㅣ'?", ["i", "e", "a", "o"], "i"),
     ],
+    // Consonants
     [
       Question("What is the consonant sound for 'ㄱ'?", ["g", "k", "d", "b"], "g"),
       Question("What is the consonant sound for 'ㄴ'?", ["n", "m", "l", "r"], "n"),
@@ -85,175 +86,177 @@ class _GamifiedLearningScreenState extends State<GamifiedLearningScreen> {
       Question("How do you say 'My name is' in Korean?", ["저는", "나는", "그는", "그녀는"], "저는"),
       Question("How do you say 'I am a student' in Korean?", ["나는 학생입니다", "저는 학생입니다", "그는 학생입니다", "그녀는 학생입니다"], "저는 학생입니다"),
       Question("What does '저는 한국인입니다' mean?", ["I am American", "I am Korean", "I am Japanese", "I am Chinese"], "I am Korean"),
-      Question("How do you say 'I am from Egypt' in Korean?", ["나는 이집트에서 왔어요", "저는 이집트에서 왔어요", "그는 이집트에서 왔어요", "그녀는 이집트에서 왔어요"], "저는 이집트에서 왔어요"),
-      Question("How do you say 'Nice to meet you' in Korean?", ["안녕하세요", "만나서 반갑습니다", "고맙습니다", "잘 가세요"], "만나서 반갑습니다"),
-      Question("How do you say 'I am 20 years old' in Korean?", ["나는 20살이에요", "저는 20살이에요", "그는 20살이에요", "그녀는 20살이에요"], "저는 20살이에요"),
-      Question("How do you say 'This is my friend' in Korean?", ["이것은 내 친구입니다", "저는 내 친구입니다", "그는 내 친구입니다", "그녀는 내 친구입니다"], "이것은 내 친구입니다"),
-      Question("How do you say 'I like to learn Korean' in Korean?", ["나는 한국어 배우는 것을 좋아해요", "저는 한국어 배우는 것을 좋아해요", "그는 한국어 배우는 것을 좋아해요", "그녀는 한국어 배우는 것을 좋아해요"], "저는 한국어 배우는 것을 좋아해요"),
-      Question("How do you say 'I live in Cairo' in Korean?", ["나는 카이로에 살아요", "저는 카이로에 살아요", "그는 카이로에 살아요", "그녀는 카이로에 살아요"], "저는 카이로에 살아요"),
-      Question("How do you say 'I am happy' in Korean?", ["나는 행복해요", "저는 행복해요", "그는 행복해요", "그녀는 행복해요"], "저는 행복해요"),
+      Question("How do you say 'I am from Egypt' in Korean?", ["나는 이집트에서 왔어요", "저는 이집트 사람입니다", "그는 이집트에서 왔어요", "그녀는 이집트에서 왔어요"], "저는 이집트 사람입니다"),
+      Question("How do you introduce yourself in a formal setting?", ["안녕하세요, 저는", "저는", "나는", "그는"], "안녕하세요, 저는"),
+      Question("How do you express your age?", ["저는 나이가", "나는 나이가", "그는 나이가", "그녀는 나이가"], "저는 나이가"),
+      Question("How do you say 'nice to meet you' in Korean?", ["반갑습니다", "고맙습니다", "안녕하세요", "안녕히 가세요"], "반갑습니다"),
+      Question("What is 'where are you from' in Korean?", ["어디에서 왔어요?", "어디에서 살아요?", "어디에서 공부해요?", "어디에서 일해요?"], "어디에서 왔어요?"),
+      Question("What is 'I live in' in Korean?", ["저는 살고 있어요", "나는 살고 있어요", "그는 살고 있어요", "그녀는 살고 있어요"], "저는 살고 있어요"),
+      Question("What is 'my hobby is reading' in Korean?", ["저의 취미는 독서입니다", "나는 독서를 좋아합니다", "그는 독서를 좋아합니다", "그녀는 독서를 좋아합니다"], "저의 취미는 독서입니다"),
     ],
     // Food
     [
-      Question("What is 'rice' in Korean?", ["밥", "국", "김치", "과일"], "밥"),
-      Question("What is 'kimchi' in Korean?", ["국", "김치", "밥", "과일"], "김치"),
-      Question("What is 'soup' in Korean?", ["국", "김치", "밥", "과일"], "국"),
-      Question("What is 'fruit' in Korean?", ["밥", "국", "김치", "과일"], "과일"),
-      Question("What is 'meat' in Korean?", ["고기", "밥", "국", "김치"], "고기"),
-      Question("What is 'vegetable' in Korean?", ["채소", "과일", "밥", "김치"], "채소"),
-      Question("What is 'noodle' in Korean?", ["면", "밥", "국", "김치"], "면"),
-      Question("What is 'fish' in Korean?", ["생선", "고기", "국", "김치"], "생선"),
-      Question("What is 'salad' in Korean?", ["샐러드", "밥", "국", "김치"], "샐러드"),
-      Question("What is 'dessert' in Korean?", ["디저트", "밥", "국", "김치"], "디저트"),
+      Question("What is 'rice' in Korean?", ["밥", "김치", "불고기", "비빔밥"], "밥"),
+      Question("What is 'kimchi' in Korean?", ["김치", "불고기", "비빔밥", "라면"], "김치"),
+      Question("What is 'bulgogi' in Korean?", ["불고기", "김치", "비빔밥", "라면"], "불고기"),
+      Question("What is 'bibimbap' in Korean?", ["비빔밥", "라면", "불고기", "김치"], "비빔밥"),
+      Question("What is 'ramen' in Korean?", ["라면", "김치", "불고기", "비빔밥"], "라면"),
+      Question("How do you say 'I want to eat' in Korean?", ["먹고 싶어요", "자고 싶어요", "놀고 싶어요", "읽고 싶어요"], "먹고 싶어요"),
+      Question("What is 'water' in Korean?", ["물", "커피", "차", "주스"], "물"),
+      Question("What is 'coffee' in Korean?", ["커피", "차", "주스", "물"], "커피"),
+      Question("How do you say 'please give me' in Korean?", ["주세요", "고마워요", "미안해요", "잘 가요"], "주세요"),
+      Question("What is 'fruit' in Korean?", ["과일", "사과", "포도", "배"], "과일"),
+    ],
+    // Verbs
+    [
+      Question("What is 'to eat' in Korean?", ["먹다", "자다", "놀다", "읽다"], "먹다"),
+      Question("What is 'to sleep' in Korean?", ["자다", "놀다", "읽다", "먹다"], "자다"),
+      Question("What is 'to play' in Korean?", ["놀다", "읽다", "먹다", "자다"], "놀다"),
+      Question("What is 'to read' in Korean?", ["읽다", "먹다", "자다", "놀다"], "읽다"),
+      Question("What is 'to write' in Korean?", ["쓰다", "읽다", "놀다", "자다"], "쓰다"),
+      Question("What is 'to speak' in Korean?", ["말하다", "읽다", "쓰다", "먹다"], "말하다"),
+      Question("What is 'to listen' in Korean?", ["듣다", "읽다", "쓰다", "먹다"], "듣다"),
+      Question("What is 'to study' in Korean?", ["공부하다", "읽다", "놀다", "자다"], "공부하다"),
+      Question("What is 'to drink' in Korean?", ["마시다", "먹다", "자다", "읽다"], "마시다"),
+      Question("What is 'to learn' in Korean?", ["배우다", "공부하다", "먹다", "자다"], "배우다"),
     ],
   ];
 
-  void _incrementScore() {
-    setState(() {
-      _score++;
-      _correctAnswersInCategory++;
-      if (_correctAnswersInCategory >= _questionsNeededForLevelUp) {
-        _level++;
-        _pointsToNextLevel += 5; // Increase points needed for next level
 
-        // Check if the new level is 8 and show the congratulations dialog
-        if (_level == 8) {
-          _showCongratulationsDialog();
-        }
-        _resetCategory();
+  Question get question => _categories[_currentCategoryIndex][_correctAnswersInCategory % _categories[_currentCategoryIndex].length];
+
+  void _checkAnswer(String selectedAnswer, String correctAnswer) {
+    if (selectedAnswer == correctAnswer) {
+      _correctAnswersInCategory++;
+      _score++;
+      if (_correctAnswersInCategory >= _questionsNeededForLevelUp) {
+        _levelUp();
       }
-    });
+    } else {
+      _showTryAgainDialog();
+    }
+    setState(() {});
   }
 
-  void _resetCategory() {
-    setState(() {
-      _currentCategoryIndex = (_currentCategoryIndex + 1) % _categories.length;
-      _correctAnswersInCategory = 0;
-      _score = 0; // Reset score for the new category
-    });
+  void _levelUp() {
+    _level++;
+    _correctAnswersInCategory = 0;
+    if (_level > 8) {
+      _showCongratsDialog();
+    } else {
+      _pointsToNextLevel = _questionsNeededForLevelUp;
+      setState(() {});
+    }
+  }
+
+  void _showTryAgainDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Incorrect!'),
+        content: const Text('Try again.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showCongratsDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text(
+          'Congratulations!',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.green),
+        ),
+        content: const Text(
+          'You have completed all the levels!',
+          style: TextStyle(fontSize: 18),
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _resetGame();
+            },
+            child: const Text(
+              'Restart',
+              style: TextStyle(fontSize: 18, color: Colors.blue),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   void _resetGame() {
     setState(() {
-      _score = 0;
       _level = 1;
-      _pointsToNextLevel = 5;
-      _currentCategoryIndex = 0;
       _correctAnswersInCategory = 0;
+      _score = 0;
+      _pointsToNextLevel = _questionsNeededForLevelUp;
     });
   }
 
-  void _showCongratulationsDialog() {
-    showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: Center(
-            child: const Text('Congratulations!', style: TextStyle(fontSize: 24, color: Colors.green)),
-          ),
-          content: const Text('You have reached Level 8! Great job!', style: TextStyle(fontSize: 16)),
-          actions: [
-            TextButton(
-              onPressed: () {
-                _resetGame();
-                Navigator.of(ctx).pop(); // Close the dialog
-              },
-              child: const Text('OK', style: TextStyle(fontSize: 16)),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-
-  void _checkAnswer(String answer, String correctAnswer) {
-    if (answer == correctAnswer) {
-      _incrementScore();
-    } else {
-      // Show alert dialog for incorrect answer
-      showDialog(
-        context: context,
-        builder: (ctx) {
-          return AlertDialog(
-            title: Center(
-              child: const Text('Incorrect Answer',style: TextStyle(fontSize: 20,color: Colors.red),
-              ),
-            ),
-            content: const Text('That answer is not correct. Please try again!',style: TextStyle(fontSize: 15),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(ctx).pop(); // Close the dialog
-                },
-                child: const Text('OK',style: TextStyle(fontSize: 15,color: Colors.red),
-                ),
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
-
-
   @override
   Widget build(BuildContext context) {
-    final currentCategory = _categories[_currentCategoryIndex];
-    final question = currentCategory[Random().nextInt(currentCategory.length)];
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gamified Learning Experience'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: _resetGame,
-          ),
-        ],
+        title: const Center(child: Text('Gamified Learning')),
+        backgroundColor: Colors.blueAccent,
       ),
-      body: Padding(
+      body: Container(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
               'Score: $_score',
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Text(
               'Level: $_level',
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue),
+            ),
+            const SizedBox(height: 30),
+            Text(
+              question.text,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            Column(
+              children: question.options.map((option) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: ElevatedButton(
+                    onPressed: () => _checkAnswer(option, question.correctAnswer),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      textStyle: const TextStyle(fontSize: 18),
+                    ),
+                    child: Text(option),
+                  ),
+                );
+              }).toList(),
             ),
             const SizedBox(height: 20),
             LinearProgressIndicator(
-              value: _score / _pointsToNextLevel,
-              backgroundColor: Colors.grey[500],
-              color: Colors.redAccent,
+              value: _correctAnswersInCategory / _questionsNeededForLevelUp,
+              backgroundColor: Colors.grey[300],
+              valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Text(
-              question.questionText,
-              style: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(height: 20),
-            ...question.options.map((option) {
-              return ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(Colors.blueAccent),
-                  overlayColor: WidgetStatePropertyAll(Colors.redAccent)
-                ),
-                onPressed: () => _checkAnswer(option, question.correctAnswer),
-                child: Text(option,style: TextStyle(color: Colors.black),),
-              );
-            }),
-            const SizedBox(height: 20),
-            Text(
-              'Unlock rewards as you level up!',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.green[700]),
+              'Correct Answers: $_correctAnswersInCategory / $_questionsNeededForLevelUp',
+              style: const TextStyle(fontSize: 16),
             ),
           ],
         ),
@@ -263,9 +266,11 @@ class _GamifiedLearningScreenState extends State<GamifiedLearningScreen> {
 }
 
 class Question {
-  final String questionText;
-  final List<String> options;
+  final String text;
+  List<String> options;
   final String correctAnswer;
 
-  Question(this.questionText, this.options, this.correctAnswer);
+  Question(this.text, this.options, this.correctAnswer){
+    this.options = List.from(options)..shuffle(Random()); // Shuffle the answers
+     }
 }
