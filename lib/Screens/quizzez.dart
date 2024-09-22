@@ -66,27 +66,27 @@ class QuizHomePage extends StatelessWidget {
   Widget buildQuizRow(
       BuildContext context, List<String> quizTitles, List<Widget> quizScreens) {
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
+      child: Column(
         children: List.generate(quizTitles.length, (index) {
           return GestureDetector(
             onTap: () => _navigateToQuiz(context, index, quizScreens),
             child: Card(
-              elevation: 40,
-              color: Colors.blue[200],
+              elevation: 5,
+              color: Colors.white30,
               shape: const BorderDirectional(
                 end: BorderSide(width: 3, color: Colors.black12),
               ),
               child: Container(
-                width: 150,
-                height: 130,
-                child: Center(
-                  child: Text(
-                    quizTitles[index],
-                    style: const TextStyle(fontSize: 17),
-                    textAlign: TextAlign.center,
+                width: 1000,
+                height: 60,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      quizTitles[index],
+                      style: const TextStyle(fontSize: 25),
+                      textAlign: TextAlign.start,
+                                    ),
                   ),
-                ),
               ),
             ),
           );
@@ -105,30 +105,32 @@ class QuizHomePage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Beginner",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            buildQuizRow(context, beginnerQuizTitles, beginnerQuizScreens),
-            const SizedBox(height: 20),
-            const Text(
-              "Intermediate",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            buildQuizRow(context, intermediateQuizTitles, intermediateQuizScreens),
-            const SizedBox(height: 20),
-            const Text(
-              "Advanced",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            buildQuizRow(context, advancedQuizTitles, advancedQuizScreens),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Beginner",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              buildQuizRow(context, beginnerQuizTitles, beginnerQuizScreens),
+              const SizedBox(height: 20),
+              const Text(
+                "Intermediate",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              buildQuizRow(context, intermediateQuizTitles, intermediateQuizScreens),
+              const SizedBox(height: 20),
+              const Text(
+                "Advanced",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              buildQuizRow(context, advancedQuizTitles, advancedQuizScreens),
+            ],
+          ),
         ),
       ),
     );
