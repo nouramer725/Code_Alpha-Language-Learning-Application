@@ -84,6 +84,8 @@ flutter:
      - assets/sounds/greetings/
      - assets/sounds/introduce/
      - assets/sounds/verbs/
+     - assets/sounds/inter/
+     - assets/sounds/past/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
