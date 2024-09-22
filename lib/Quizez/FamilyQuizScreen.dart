@@ -72,7 +72,7 @@ class _FamilyMembersQuizScreenState extends State<FamilyMembersQuizScreen> {
           ...question.options.map((option) {
             return ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.red),
+                backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
               ),
               onPressed: () => _submitAnswer(option),
               child: Text(

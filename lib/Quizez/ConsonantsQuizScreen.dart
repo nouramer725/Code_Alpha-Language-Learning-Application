@@ -59,29 +59,31 @@ class _ConsonantsQuizScreenState extends State<ConsonantsQuizScreen> {
     final question = questions[currentQuestionIndex];
     return Scaffold(
       appBar: AppBar(title: const Text("Korean Consonants Quiz")),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Text(
-              "Q${currentQuestionIndex + 1}: ${question.questionText}",
-              style: const TextStyle(fontSize: 20),
-            ),
-          ),
-          const SizedBox(height: 20),
-          ...question.options.map((option) {
-            return ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.red),
-              ),
-              onPressed: () => _submitAnswer(option),
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
               child: Text(
-                option,
-                style: const TextStyle(color: Colors.white, fontSize: 22),
+                "Q${currentQuestionIndex + 1}: ${question.questionText}",
+                style: const TextStyle(fontSize: 20),
               ),
-            );
-          }),
-        ],
+            ),
+            ...question.options.map((option) {
+              return ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
+                ),
+                onPressed: () => _submitAnswer(option),
+                child: Text(
+                  option,
+                  style: const TextStyle(color: Colors.white, fontSize: 22),
+                ),
+              );
+            }),
+          ],
+        ),
       ),
     );
   }

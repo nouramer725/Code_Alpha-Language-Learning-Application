@@ -62,17 +62,20 @@ class _IntroduceYourselfQuizScreenState extends State<IntroduceYourselfQuizScree
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
-            child: Text(
-              "Q${currentQuestionIndex + 1}: ${question.questionText}",
-              style: const TextStyle(fontSize: 20),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
+                "Q${currentQuestionIndex + 1}: ${question.questionText}",
+                style: const TextStyle(fontSize: 20),
+              ),
             ),
           ),
           const SizedBox(height: 20),
           ...question.options.map((option) {
             return ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.red),
+                backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
               ),
               onPressed: () => _submitAnswer(option),
               child: Text(
