@@ -24,27 +24,27 @@ class Novel {
 
 class ShieldScreen extends StatelessWidget {
   final List<Movie> movieList = [
+    Movie(title: "Parasite", url: "https://www.imdb.com/title/tt6751668/"),
+    Movie(title: "The Call", url: "https://www.netflix.com/eg-en/title/81342505"),
+    Movie(title: "Train to Busan", url: "https://www.imdb.com/title/tt5700672/"),
     Movie(title: "Alive", url: "https://www.netflix.com/eg-en/title/81240831"),
-    Movie(title: "Brave", url: "https://www.imdb.com/title/tt22505214/"),
-    Movie(title: "Call", url: "https://www.netflix.com/eg-en/title/81342505"),
+    Movie(title: "Brave Citizen", url: "https://www.imdb.com/title/tt22505214/"),
     Movie(title: "Exit", url: "https://www.imdb.com/title/tt10648440/"),
     Movie(title: "Midnight", url: "https://www.imdb.com/title/tt14757872/"),
     Movie(title: "Midnight Runner", url: "https://www.imdb.com/title/tt7056732/"),
     Movie(title: "My Annoying Brother", url: "https://www.imdb.com/title/tt6388082/"),
-    Movie(title: "Parasite", url: "https://www.imdb.com/title/tt6751668/"),
     Movie(title: "Seobok", url: "https://www.imdb.com/title/tt13316722/"),
-    Movie(title: "Train to Busan", url: "https://www.imdb.com/title/tt5700672/"),
   ];
 
   final List<Series> seriesList = [
+    Series(title: "Crash Landing On You", url: "https://www.netflix.com/eg-en/title/81159258"),
+    Series(title: "Mouse", url: "https://www.imdb.com/title/tt13634792/"),
+    Series(title: "True Beauty", url: "https://www.netflix.com/eg-en/title/81410834"),
     Series(title: "All Of Us Are Dead", url: "https://www.netflix.com/eg-en/title/81237994"),
     Series(title: "Bad And Crazy", url: "https://www.imdb.com/title/tt15146202/"),
-    Series(title: "Crash Landing On You", url: "https://www.netflix.com/eg-en/title/81159258"),
     Series(title: "Flower Of Evil", url: "https://www.netflix.com/eg-en/title/81357268"),
-    Series(title: "Mouse", url: "https://www.imdb.com/title/tt13634792/"),
     Series(title: "The Devil Judge", url: "https://www.netflix.com/eg-en/title/81517098"),
     Series(title: "The Good Bad Mother", url: "https://www.netflix.com/eg-en/title/81669775"),
-    Series(title: "True Beauty", url: "https://www.netflix.com/eg-en/title/81410834"),
     Series(title: "Twinkling Watermelon", url: "https://www.imdb.com/title/tt27446493/"),
     Series(title: "Vincenzo", url: "https://www.netflix.com/eg-en/title/81365087"),
     Series(title: "Connection", url: "https://www.imdb.com/title/tt30422566/"),
@@ -64,27 +64,27 @@ class ShieldScreen extends StatelessWidget {
   ];
 
   final List<String> movieImagePaths = [
+    'assets/images/movies/parasite.jpg',
+    'assets/images/movies/call.jpg',
+    'assets/images/movies/train.jpg',
     'assets/images/movies/alive.jpg',
     'assets/images/movies/brave.jpg',
-    'assets/images/movies/call.jpg',
     'assets/images/movies/exit.jpg',
     'assets/images/movies/midnight.jpg',
     'assets/images/movies/midnight_runners.jpg',
     'assets/images/movies/my_annoying_brother.jpg',
-    'assets/images/movies/parasite.jpg',
     'assets/images/movies/seobook.jpg',
-    'assets/images/movies/train.jpg',
   ];
 
   final List<String> seriesImagePaths = [
+    'assets/images/series/crash_landing_on_you.jpg',
+    'assets/images/series/mouse.jpg',
+    'assets/images/series/True.jpg',
     'assets/images/series/all_of_us_are_dead.jpg',
     'assets/images/series/bad_and_crazy.jpg',
-    'assets/images/series/crash_landing_on_you.jpg',
     'assets/images/series/flower_of_evil.jpg',
-    'assets/images/series/mouse.jpg',
     'assets/images/series/the_devil_judge.jpg',
     'assets/images/series/the_good_bad_mother.jpg',
-    'assets/images/series/True.jpg',
     'assets/images/series/twin.jpg',
     'assets/images/series/vincenzo.jpg',
     'assets/images/series/connection.jpg',
@@ -158,10 +158,15 @@ class ShieldScreen extends StatelessWidget {
                   Positioned(
                       bottom: 0,
                       right: 0,
-                      child: TextButton(
-                        iconAlignment: IconAlignment.end,
-                        child: Icon(Icons.touch_app, color: Colors.white,size: 40,),
-                        onPressed: () => _launchURL(item.url),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                        ),
+                        child: TextButton(
+                          iconAlignment: IconAlignment.end,
+                          child: Icon(Icons.touch_app, color: Colors.white,size: 40,),
+                          onPressed: () => _launchURL(item.url),
+                        ),
                       ),
                     ),
                     ],
