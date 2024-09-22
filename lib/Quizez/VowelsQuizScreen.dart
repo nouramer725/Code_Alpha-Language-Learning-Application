@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'ResultScreen.dart';
 
 class VowelsQuizScreen extends StatefulWidget {
@@ -42,16 +42,45 @@ class _VowelsQuizScreenState extends State<VowelsQuizScreen> {
         score++;
       }
     }
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ResultsScreen(
-          score: score,
-          selectedAnswers: selectedAnswers,
-          questions: questions,
-        ),
+    // Show completion dialog and add achievement
+    _showCompletionDialog("Vowels Quiz Completed Completed🎉");
+  }
+
+  void _showCompletionDialog(String achievement) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Congratulations! 🎉"),
+        content: Text("You've completed the $achievement!"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              _addAchievement(achievement); // Add achievement
+              Navigator.of(context).pop(); // Close the dialog
+              // Navigate to the results screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultsScreen(
+                    score: selectedAnswers.where((answer) => questions[selectedAnswers.indexOf(answer)].correctAnswer == answer).length,
+                    selectedAnswers: selectedAnswers,
+                    questions: questions,
+                  ),
+                ),
+              );
+            },
+            child: const Text("Okay"),
+          ),
+        ],
       ),
     );
+  }
+
+  void _addAchievement(String achievement) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> achievements = prefs.getStringList("achievements") ?? [];
+    achievements.add(achievement);
+    await prefs.setStringList("achievements", achievements);
   }
 
   @override
@@ -64,7 +93,7 @@ class _VowelsQuizScreenState extends State<VowelsQuizScreen> {
         children: [
           Center(
             child: Text(
-              "Q${currentQuestionIndex + 1}:   ${question.questionText}",
+              "Q${currentQuestionIndex + 1}: ${question.questionText}",
               style: const TextStyle(fontSize: 20),
             ),
           ),
@@ -72,7 +101,7 @@ class _VowelsQuizScreenState extends State<VowelsQuizScreen> {
           ...question.options.map((option) {
             return ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
+                backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
               ),
               onPressed: () => _submitAnswer(option),
               child: Text(

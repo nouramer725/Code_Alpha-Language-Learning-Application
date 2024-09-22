@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'ResultScreen.dart';
-import 'VowelsQuizScreen.dart'; // Make sure this path is correct
+import 'VowelsQuizScreen.dart'; // Ensure this path is correct
 
 class ConsonantsQuizScreen extends StatefulWidget {
   @override
@@ -31,8 +32,35 @@ class _ConsonantsQuizScreenState extends State<ConsonantsQuizScreen> {
         currentQuestionIndex++;
       });
     } else {
-      _showResultScreen();
+      _showCompletionDialog("Korean Consonants Quiz Completed🎉");
     }
+  }
+
+  void _showCompletionDialog(String achievement) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Congratulations! 🎉"),
+        content: Text("You've completed the $achievement!"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              _addAchievement(achievement);
+              Navigator.of(context).pop();
+              _showResultScreen();
+            },
+            child: const Text("Okay"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _addAchievement(String achievement) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> achievements = prefs.getStringList("achievements") ?? [];
+    achievements.add(achievement);
+    await prefs.setStringList("achievements", achievements);
   }
 
   void _showResultScreen() {
@@ -70,10 +98,11 @@ class _ConsonantsQuizScreenState extends State<ConsonantsQuizScreen> {
                 style: const TextStyle(fontSize: 20),
               ),
             ),
+            const SizedBox(height: 20),
             ...question.options.map((option) {
               return ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
+                  backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
                 ),
                 onPressed: () => _submitAnswer(option),
                 child: Text(
@@ -88,3 +117,4 @@ class _ConsonantsQuizScreenState extends State<ConsonantsQuizScreen> {
     );
   }
 }
+

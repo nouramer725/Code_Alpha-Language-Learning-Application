@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'ResultScreen.dart'; // Make sure this path is correct
-import 'VowelsQuizScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'ResultScreen.dart';
+import 'VowelsQuizScreen.dart'; // Ensure this path is correct
 
 class FoodQuizScreen extends StatefulWidget {
   @override
@@ -31,8 +32,35 @@ class _FoodQuizScreenState extends State<FoodQuizScreen> {
         currentQuestionIndex++;
       });
     } else {
-      _showResultScreen();
+      _showCompletionDialog("Korean Food Quiz Completed🎉");
     }
+  }
+
+  void _showCompletionDialog(String achievement) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Congratulations! 🎉"),
+        content: Text("You've completed the $achievement!"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              _addAchievement(achievement);
+              Navigator.of(context).pop();
+              _showResultScreen();
+            },
+            child: const Text("Okay"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _addAchievement(String achievement) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> achievements = prefs.getStringList("achievements") ?? [];
+    achievements.add(achievement);
+    await prefs.setStringList("achievements", achievements);
   }
 
   void _showResultScreen() {
@@ -75,7 +103,7 @@ class _FoodQuizScreenState extends State<FoodQuizScreen> {
           ...question.options.map((option) {
             return ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
+                backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
               ),
               onPressed: () => _submitAnswer(option),
               child: Text(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'ResultScreen.dart'; // Make sure this path is correct
-import 'VowelsQuizScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'ResultScreen.dart';
+import 'VowelsQuizScreen.dart'; // Ensure this path is correct
 
 class FamilyMembersQuizScreen extends StatefulWidget {
   @override
@@ -31,8 +32,35 @@ class _FamilyMembersQuizScreenState extends State<FamilyMembersQuizScreen> {
         currentQuestionIndex++;
       });
     } else {
-      _showResultScreen();
+      _showCompletionDialog("Korean Family Members Quiz Completed🎉");
     }
+  }
+
+  void _showCompletionDialog(String achievement) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Congratulations! 🎉"),
+        content: Text("You've completed the $achievement!"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              _addAchievement(achievement);
+              Navigator.of(context).pop();
+              _showResultScreen();
+            },
+            child: const Text("Okay"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _addAchievement(String achievement) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> achievements = prefs.getStringList("achievements") ?? [];
+    achievements.add(achievement);
+    await prefs.setStringList("achievements", achievements);
   }
 
   void _showResultScreen() {
@@ -62,10 +90,13 @@ class _FamilyMembersQuizScreenState extends State<FamilyMembersQuizScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
-            child: Text(
-              "Q${currentQuestionIndex + 1}: ${question.questionText}",
-              style: const TextStyle(fontSize: 20),
+          Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Center(
+              child: Text(
+                "Q${currentQuestionIndex + 1}: ${question.questionText}",
+                style: const TextStyle(fontSize: 20),
+              ),
             ),
           ),
           const SizedBox(height: 20),
