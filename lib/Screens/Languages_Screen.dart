@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:learning/widgets/beginner/Consonants.dart';
-import 'package:learning/widgets/intermidiate/Intermediate%20Grammar%20Screen.dart';
+import 'package:learning/widgets/intermidiate/Intermediate Grammar Screen.dart';
 import 'package:learning/widgets/beginner/Vowles.dart';
 import 'package:learning/widgets/intermidiate/family.dart';
 import 'package:learning/widgets/intermidiate/food.dart';
-import 'package:learning/widgets/advanced/introduce%20yourself.dart';
+import 'package:learning/widgets/advanced/introduce yourself.dart';
 import 'package:learning/widgets/intermidiate/verbs.dart';
 import '../widgets/beginner/Basic sentences.dart';
 import '../widgets/beginner/Characters.dart';
@@ -12,6 +13,7 @@ import '../widgets/advanced/Greet_people.dart';
 import '../widgets/intermidiate/Past Events and Future Plans Screen.dart';
 
 class LanguagesScreen extends StatelessWidget {
+
   // Categories divided into three levels
   final List<String> beginnerTitles = [
     "Learn Korean Vowels",
@@ -54,16 +56,41 @@ class LanguagesScreen extends StatelessWidget {
   ];
 
   final List<String> imagePaths = [
-    'assets/images/image1.png',
-    'assets/images/image1.png',
-    'assets/images/image1.png',
-    'assets/images/image1.png',
-    'assets/images/image1.png',
-    'assets/images/image1.png',
-    'assets/images/image1.png',
-    'assets/images/image1.png',
-    'assets/images/image1.png',
+    'assets/images/vowels.jpg',
+    'assets/images/consta.jpg',
+    'assets/images/char.jpg',
+    'assets/images/sentence.jpg',
+    'assets/images/fooddd.jpg',
+    'assets/images/Familyyy.jpg',
+    'assets/images/verbsss.jpg',
+    'assets/images/future.jpg',
+    'assets/images/gramm.jpeg',
+    'assets/images/introoo.jpg',
+    'assets/images/greett.jpg',
   ];
+
+  final List<String> youtubeLinks = [
+    "https://youtu.be/4CJ8GkKSR_E?si=PwmlnBOc3Q6WoJpY", // Add actual links here
+    "https://youtu.be/1A5YQ0H5dZg?si=Tbe1UreCnoiukA8L",
+    "https://youtu.be/6jdX2qOkU5M?si=mP_bkFxjYLTpoYiB",
+    "https://youtu.be/TUSNTV7VkcI?si=BayCLJiVhcNLXSAk",
+    "https://youtu.be/VfekBGYRx0o?si=2t-lapOV15SNRqrx",
+    "https://youtu.be/7al4CpkrBLA?si=YssImmmvCsak5xdS",
+    "https://youtu.be/7JeCqgeCRwo?si=-rJtlYEYVZjEm3rl",
+    "https://youtu.be/aNJ_18Y5FVE?si=IDRWK3ucEVI_TSx3",
+    "https://youtube.com/playlist?list=PLEkblciwzGWRIY6dC_tvu4MwYpLG7Vfqw&si=HCppGGPl8yE8cVwJ",
+    "https://youtu.be/GLAVtZTfNmQ?si=5fZbldnAqUFPwQ52",
+    "https://youtu.be/RzQQAs_PuZw?si=qItT2MvpDFpcwyJc"
+  ];
+
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
 
   // Navigate to different screens when the container is clicked
   void _navigateToScreen(BuildContext context, Widget screen) {
@@ -89,18 +116,16 @@ class LanguagesScreen extends StatelessWidget {
             ),
             child: Text(
               levelTitle,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
         ),
-        SizedBox(
-          height: 5,
-        ),
+        const SizedBox(height: 5),
         ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: titles.length,
           itemBuilder: (context, index) {
@@ -109,7 +134,7 @@ class LanguagesScreen extends StatelessWidget {
               child: GestureDetector(
                 onTap: () => _navigateToScreen(context, screens[index]),
                 child: Container(
-                  height: 180,
+                  height: 200,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(imagePaths[index]),
@@ -122,8 +147,8 @@ class LanguagesScreen extends StatelessWidget {
                     children: [
                       Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: const BoxDecoration(
                           color: Colors.black54,
                           borderRadius: BorderRadius.vertical(
                               bottom: Radius.circular(20)),
@@ -133,23 +158,36 @@ class LanguagesScreen extends StatelessWidget {
                           children: [
                             Text(
                               titles[index],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
                             ),
                             SizedBox(height: 10),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 16),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(8),
+                            GestureDetector(
+                              onTap: () => _launchURL(youtubeLinks[index]),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 16),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  'Learn More',
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
-                              child: Text(
-                                'Learn More',
-                                style: TextStyle(color: Colors.white),
+                            ),
+                            ElevatedButton(
+                              style: const ButtonStyle(
+                                backgroundColor: WidgetStatePropertyAll(Colors.black12)
+                              ),
+                              onPressed: () => _navigateToScreen(context, screens[index]),
+                              child: const Text('Start',style: TextStyle(
+                                color: Colors.white
+                              ),
                               ),
                             ),
                           ],
@@ -178,11 +216,10 @@ class LanguagesScreen extends StatelessWidget {
                 beginnerScreens, imagePaths.sublist(0, 4)),
             // Intermediate Level
             _buildLevelSection(context, "  Intermediate  ", intermediateTitles,
-                intermediateScreens, imagePaths.sublist(2, 7)),
+                intermediateScreens, imagePaths.sublist(4, 9)),
             // Advanced Level
             _buildLevelSection(context, "  Advanced  ", advancedTitles,
-                advancedScreens, imagePaths.sublist(7, 9)),
-            // Fix here: Ensure sublist doesn't go out of range
+                advancedScreens, imagePaths.sublist(9, 11)),
           ],
         ),
       ),

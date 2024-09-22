@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:learning/Screens/Achievement%20screen.dart';
 import 'package:learning/Screens/Community.dart';
 import 'package:learning/Screens/Languages_Screen.dart';
-import 'package:learning/Screens/Games.dart';
 import 'package:learning/Screens/quizzez.dart';
 import 'package:learning/Screens/Fun_Screen.dart';
+
+import 'Screens/Games.dart';
 
 class Basicapplication extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -22,8 +24,9 @@ class _HomeScreenState extends State<Basicapplication> {
     LanguagesScreen(),
     ShieldScreen(),
     QuizHomePage(),
-    GamifiedLearningScreen(),
-    ForumScreen()
+    FoodMatchingGame(),
+    ForumScreen(),
+    AchievementScreen()
   ];
 
   // Function to change the selected index
@@ -104,6 +107,15 @@ class _HomeScreenState extends State<Basicapplication> {
             )
                 : Icon(Icons.format_align_center_rounded),
             label: 'Community',
+          ),
+          BottomNavigationBarItem(
+            icon: _selectedIndex == 5
+                ? Transform.translate(
+              offset: Offset(0, 0), // Raise the selected icon
+              child: Icon(Icons.emoji_events),
+            )
+                : Icon(Icons.emoji_events),
+            label: 'Achievement',
           ),
         ],
       ),

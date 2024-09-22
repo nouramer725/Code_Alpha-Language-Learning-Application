@@ -1,276 +1,328 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class GamifiedLearningScreen extends StatefulWidget {
+class FoodMatchingGame extends StatefulWidget {
   @override
-  _GamifiedLearningScreenState createState() => _GamifiedLearningScreenState();
+  _FoodMatchingGameState createState() => _FoodMatchingGameState();
 }
 
-class _GamifiedLearningScreenState extends State<GamifiedLearningScreen> {
-  int _score = 0;
-  int _level = 1;
-  int _pointsToNextLevel = 10;
-  int _currentCategoryIndex = 0;
-  int _correctAnswersInCategory = 0;
-  final int _questionsNeededForLevelUp = 10;
+class _FoodMatchingGameState extends State<FoodMatchingGame> {
+  // Sample data
+  final Map<String, String> Matching = {
+    "김치": "Kimchi",
+    "비빔밥": "Bibimbap",
+    "불고기": "Bulgogi",
+    "떡볶이": "Tteokbokki",
+    "잡채": "Japchae",
+    "삼겹살": "Samgyeopsal",
+    "갈비": "Galbi",
+    "라면": "Ramen",
 
-  // Define categories with sample questions
-  final List<List<Question>> _categories = [
-    // Vowels
-    [
-      Question("What is the vowel sound for 'ㅏ'?", ["a", "e", "i", "o"], "a"),
-      Question("What is the vowel sound for 'ㅑ'?", ["ya", "ye", "yu", "o"], "ya"),
-      Question("What is the vowel sound for 'ㅐ'?", ["ae", "e", "i", "o"], "ae"),
-      Question("What is the vowel sound for 'ㅔ'?", ["e", "ae", "i", "o"], "e"),
-      Question("What is the vowel sound for 'ㅗ'?", ["o", "u", "e", "i"], "o"),
-      Question("What is the vowel sound for 'ㅛ'?", ["yo", "yu", "ae", "o"], "yo"),
-      Question("What is the vowel sound for 'ㅜ'?", ["u", "o", "i", "ae"], "u"),
-      Question("What is the vowel sound for 'ㅠ'?", ["yu", "u", "o", "i"], "yu"),
-      Question("What is the vowel sound for 'ㅡ'?", ["eu", "u", "o", "i"], "eu"),
-      Question("What is the vowel sound for 'ㅣ'?", ["i", "e", "a", "o"], "i"),
-    ],
-    // Consonants
-    [
-      Question("What is the consonant sound for 'ㄱ'?", ["g", "k", "d", "b"], "g"),
-      Question("What is the consonant sound for 'ㄴ'?", ["n", "m", "l", "r"], "n"),
-      Question("What is the consonant sound for 'ㄷ'?", ["d", "t", "g", "b"], "d"),
-      Question("What is the consonant sound for 'ㄹ'?", ["r", "l", "n", "m"], "r"),
-      Question("What is the consonant sound for 'ㅁ'?", ["m", "n", "b", "p"], "m"),
-      Question("What is the consonant sound for 'ㅂ'?", ["b", "p", "m", "d"], "b"),
-      Question("What is the consonant sound for 'ㅅ'?", ["s", "t", "k", "d"], "s"),
-      Question("What is the consonant sound for 'ㅇ'?", ["ng", "n", "m", "r"], "ng"),
-      Question("What is the consonant sound for 'ㅈ'?", ["j", "t", "g", "d"], "j"),
-      Question("What is the consonant sound for 'ㅊ'?", ["ch", "t", "k", "s"], "ch"),
-    ],
-    // Basic Sentences
-    [
-      Question("How do you say 'hello' in Korean?", ["안녕하세요", "안녕히 가세요", "감사합니다", "미안합니다"], "안녕하세요"),
-      Question("What is 'thank you' in Korean?", ["안녕하세요", "안녕히 가세요", "감사합니다", "미안합니다"], "감사합니다"),
-      Question("How do you say 'goodbye' in Korean?", ["안녕하세요", "안녕히 가세요", "감사합니다", "미안합니다"], "안녕히 가세요"),
-      Question("What is 'I'm sorry' in Korean?", ["안녕하세요", "안녕히 가세요", "감사합니다", "미안합니다"], "미안합니다"),
-      Question("How do you say 'yes' in Korean?", ["네", "아니요", "응", "감사합니다"], "네"),
-      Question("What is 'no' in Korean?", ["네", "아니요", "응", "감사합니다"], "아니요"),
-      Question("How do you say 'please' in Korean?", ["부탁합니다", "감사합니다", "미안합니다", "안녕하세요"], "부탁합니다"),
-      Question("What is 'good morning' in Korean?", ["좋은 아침입니다", "안녕하세요", "안녕히 가세요", "감사합니다"], "좋은 아침입니다"),
-      Question("How do you say 'see you later' in Korean?", ["또 봐요", "안녕하세요", "안녕히 가세요", "감사합니다"], "또 봐요"),
-      Question("What is 'welcome' in Korean?", ["환영합니다", "안녕하세요", "감사합니다", "미안합니다"], "환영합니다"),
-    ],
-    // Greeting People
-    [
-      Question("What do you say when meeting someone?", ["안녕하세요", "잘 가세요", "고맙습니다", "미안합니다"], "안녕하세요"),
-      Question("How do you greet someone in the morning?", ["안녕하세요", "좋은 아침입니다", "안녕히 주무세요", "감사합니다"], "좋은 아침입니다"),
-      Question("What do you say when parting ways?", ["안녕하세요", "잘 가세요", "고맙습니다", "미안합니다"], "잘 가세요"),
-      Question("How do you express gratitude?", ["안녕하세요", "고맙습니다", "미안합니다", "안녕히 가세요"], "고맙습니다"),
-      Question("What do you say when apologizing?", ["미안합니다", "안녕하세요", "감사합니다", "잘 가세요"], "미안합니다"),
-      Question("How do you say 'nice to meet you'?", ["반갑습니다", "고맙습니다", "안녕하세요", "안녕히 가세요"], "반갑습니다"),
-      Question("What phrase do you use to welcome someone?", ["환영합니다", "안녕하세요", "고맙습니다", "미안합니다"], "환영합니다"),
-      Question("How do you say 'take care' when parting?", ["안녕하세요", "잘 가세요", "감사합니다", "미안합니다"], "잘 가세요"),
-      Question("What do you say when asking how someone is?", ["안녕하세요", "어떻게 지내세요?", "잘 가세요", "고맙습니다"], "어떻게 지내세요?"),
-      Question("How do you respond to 'thank you'?", ["괜찮아요", "고맙습니다", "미안합니다", "안녕하세요"], "괜찮아요"),
-    ],
-    // Family Members
-    [
-      Question("What is 'mother' in Korean?", ["어머니", "아버지", "형", "누나"], "어머니"),
-      Question("What is 'father' in Korean?", ["어머니", "아버지", "형", "누나"], "아버지"),
-      Question("What is 'older brother' in Korean?", ["형", "오빠", "동생", "누나"], "형"),
-      Question("What is 'younger sister' in Korean?", ["언니", "누나", "동생", "여동생"], "여동생"),
-      Question("What is 'older sister' in Korean?", ["누나", "언니", "여동생", "형"], "언니"),
-      Question("What is 'younger brother' in Korean?", ["형", "동생", "오빠", "아버지"], "동생"),
-      Question("What is 'grandfather' in Korean?", ["할아버지", "할머니", "아버지", "어머니"], "할아버지"),
-      Question("What is 'grandmother' in Korean?", ["할머니", "할아버지", "엄마", "아빠"], "할머니"),
-      Question("What is 'uncle' in Korean?", ["삼촌", "이모", "고모", "아빠"], "삼촌"),
-      Question("What is 'aunt' in Korean?", ["이모", "고모", "삼촌", "엄마"], "이모"),
-    ],
-    // Introduce Yourself
-    [
-      Question("How do you say 'My name is' in Korean?", ["저는", "나는", "그는", "그녀는"], "저는"),
-      Question("How do you say 'I am a student' in Korean?", ["나는 학생입니다", "저는 학생입니다", "그는 학생입니다", "그녀는 학생입니다"], "저는 학생입니다"),
-      Question("What does '저는 한국인입니다' mean?", ["I am American", "I am Korean", "I am Japanese", "I am Chinese"], "I am Korean"),
-      Question("How do you say 'I am from Egypt' in Korean?", ["나는 이집트에서 왔어요", "저는 이집트 사람입니다", "그는 이집트에서 왔어요", "그녀는 이집트에서 왔어요"], "저는 이집트 사람입니다"),
-      Question("How do you introduce yourself in a formal setting?", ["안녕하세요, 저는", "저는", "나는", "그는"], "안녕하세요, 저는"),
-      Question("How do you express your age?", ["저는 나이가", "나는 나이가", "그는 나이가", "그녀는 나이가"], "저는 나이가"),
-      Question("How do you say 'nice to meet you' in Korean?", ["반갑습니다", "고맙습니다", "안녕하세요", "안녕히 가세요"], "반갑습니다"),
-      Question("What is 'where are you from' in Korean?", ["어디에서 왔어요?", "어디에서 살아요?", "어디에서 공부해요?", "어디에서 일해요?"], "어디에서 왔어요?"),
-      Question("What is 'I live in' in Korean?", ["저는 살고 있어요", "나는 살고 있어요", "그는 살고 있어요", "그녀는 살고 있어요"], "저는 살고 있어요"),
-      Question("What is 'my hobby is reading' in Korean?", ["저의 취미는 독서입니다", "나는 독서를 좋아합니다", "그는 독서를 좋아합니다", "그녀는 독서를 좋아합니다"], "저의 취미는 독서입니다"),
-    ],
-    // Food
-    [
-      Question("What is 'rice' in Korean?", ["밥", "김치", "불고기", "비빔밥"], "밥"),
-      Question("What is 'kimchi' in Korean?", ["김치", "불고기", "비빔밥", "라면"], "김치"),
-      Question("What is 'bulgogi' in Korean?", ["불고기", "김치", "비빔밥", "라면"], "불고기"),
-      Question("What is 'bibimbap' in Korean?", ["비빔밥", "라면", "불고기", "김치"], "비빔밥"),
-      Question("What is 'ramen' in Korean?", ["라면", "김치", "불고기", "비빔밥"], "라면"),
-      Question("How do you say 'I want to eat' in Korean?", ["먹고 싶어요", "자고 싶어요", "놀고 싶어요", "읽고 싶어요"], "먹고 싶어요"),
-      Question("What is 'water' in Korean?", ["물", "커피", "차", "주스"], "물"),
-      Question("What is 'coffee' in Korean?", ["커피", "차", "주스", "물"], "커피"),
-      Question("How do you say 'please give me' in Korean?", ["주세요", "고마워요", "미안해요", "잘 가요"], "주세요"),
-      Question("What is 'fruit' in Korean?", ["과일", "사과", "포도", "배"], "과일"),
-    ],
-    // Verbs
-    [
-      Question("What is 'to eat' in Korean?", ["먹다", "자다", "놀다", "읽다"], "먹다"),
-      Question("What is 'to sleep' in Korean?", ["자다", "놀다", "읽다", "먹다"], "자다"),
-      Question("What is 'to play' in Korean?", ["놀다", "읽다", "먹다", "자다"], "놀다"),
-      Question("What is 'to read' in Korean?", ["읽다", "먹다", "자다", "놀다"], "읽다"),
-      Question("What is 'to write' in Korean?", ["쓰다", "읽다", "놀다", "자다"], "쓰다"),
-      Question("What is 'to speak' in Korean?", ["말하다", "읽다", "쓰다", "먹다"], "말하다"),
-      Question("What is 'to listen' in Korean?", ["듣다", "읽다", "쓰다", "먹다"], "듣다"),
-      Question("What is 'to study' in Korean?", ["공부하다", "읽다", "놀다", "자다"], "공부하다"),
-      Question("What is 'to drink' in Korean?", ["마시다", "먹다", "자다", "읽다"], "마시다"),
-      Question("What is 'to learn' in Korean?", ["배우다", "공부하다", "먹다", "자다"], "배우다"),
-    ],
-  ];
+// Family Members (가족 구성원)
+    "아버지": "Father",
+    "어머니": "Mother",
+    "형": "Older Brother (for males)",
+    "오빠": "Older Brother (for females)",
+    "누나": "Older Sister (for males)",
+    "언니": "Older Sister (for females)",
+    "동생": "Younger Sibling",
+    "할머니": "Grandmother",
+
+// Sentences (기본 문장)
+    "안녕하세요": "Hello",
+    "감사합니다": "Thank you",
+    "저는 학생입니다": "I am a student",
+    "이름이 뭐예요?": "What is your name?",
+    "저는 한국어를 배우고 있어요": "I am learning Korean",
+    "몇 시예요?": "What time is it?",
+    "어디에 가요?": "Where are you going?",
+    "화장실이 어디예요?": "Where is the bathroom?",
+
+// Verbs (동사)
+    "가다": "To go",
+    "오다": "To come",
+    "먹다": "To eat",
+    "보다": "To see",
+    "마시다": "To drink",
+    "공부하다": "To study",
+    "자다": "To sleep",
+    "일하다": "To work",
+
+// Grammar (문법)
+    "은/는": "Topic Marker",
+    "이/가": "Subject Marker",
+    "을/를": "Object Marker",
+    "에": "Location Marker (at/to)",
+    "에서": "Location Marker (from/in)",
+    "이다": "To be",
+    "있다": "To exist/have",
+    "없다": "To not exist/have",
 
 
-  Question get question => _categories[_currentCategoryIndex][_correctAnswersInCategory % _categories[_currentCategoryIndex].length];
+// Vowels (한글 모음)
+    "ㅏ": "A",
+    "ㅑ": "Ya",
+    "ㅓ": "Eo",
+    "ㅕ": "Yeo",
+    "ㅗ": "O",
+    "ㅛ": "Yo",
+    "ㅜ": "U",
+    "ㅠ": "Yu",
 
-  void _checkAnswer(String selectedAnswer, String correctAnswer) {
-    if (selectedAnswer == correctAnswer) {
-      _correctAnswersInCategory++;
-      _score++;
-      if (_correctAnswersInCategory >= _questionsNeededForLevelUp) {
-        _levelUp();
+// Characters (한글 자모)
+    "ㄱ": "G",
+    "ㄴ": "N",
+    "ㄷ": "D",
+    "ㄹ": "R/L",
+    "ㅁ": "M",
+    "ㅂ": "B",
+    "ㅅ": "S",
+    "ㅇ": "Silent/Ng",
+
+// Consonants (한글 자음)
+    "ㄱ": "G/K",
+    "ㄲ": "KK",
+    "ㄴ": "N",
+    "ㄷ": "D",
+    "ㄸ": "TT",
+    "ㅁ": "M",
+    "ㅂ": "B",
+    "ㅃ": "PP",
+
+  };
+
+  List<String> korean = [];
+  List<String> english = [];
+  int? selectedKoreanIndex;
+  int? selectedEnglishIndex;
+  int score = 0; // Initialize score to 0
+
+  @override
+  void initState() {
+    super.initState();
+    korean = Matching.keys.toList();
+    english = Matching.values.toList();
+    english.shuffle(); // Shuffle the English list for randomness
+  }
+
+  Future<void> _saveAchievement(String achievement) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> achievements = prefs.getStringList("achievements") ?? [];
+    if (!achievements.contains(achievement)) {
+      achievements.add(achievement);
+      await prefs.setStringList("achievements", achievements);
+    }
+  }
+
+  // Method to handle selection
+  void _selectKorean(int index) {
+    setState(() {
+      selectedKoreanIndex = index;
+      if (selectedEnglishIndex != null) {
+        _checkMatch();
       }
-    } else {
-      _showTryAgainDialog();
-    }
-    setState(() {});
+    });
   }
 
-  void _levelUp() {
-    _level++;
-    _correctAnswersInCategory = 0;
-    if (_level > 8) {
-      _showCongratsDialog();
+  void _selectEnglish(int index) {
+    setState(() {
+      selectedEnglishIndex = index;
+      if (selectedKoreanIndex != null) {
+        _checkMatch();
+      }
+    });
+  }
+
+  // Check if the selected items match
+  void _checkMatch() {
+    if (Matching[korean[selectedKoreanIndex!]] ==
+        english[selectedEnglishIndex!]) {
+      setState(() {
+        score++; // Increment score when the match is correct
+      });
+      _showDialogOkay("Correct! Congratulations!! 🥳");
     } else {
-      _pointsToNextLevel = _questionsNeededForLevelUp;
-      setState(() {});
+      _showDialog("Wrong match! Try Again 😭");
     }
   }
 
-  void _showTryAgainDialog() {
+  // Show feedback dialog for correct match
+  void _showDialogOkay(String message) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Incorrect!'),
-        content: const Text('Try again.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+        title: Center(
+          child: Text(
+            message,
+            style: const TextStyle(color: Colors.green),
           ),
-        ],
-      ),
-    );
-  }
-
-  void _showCongratsDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text(
-          'Congratulations!',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.green),
-        ),
-        content: const Text(
-          'You have completed all the levels!',
-          style: TextStyle(fontSize: 18),
-          textAlign: TextAlign.center,
         ),
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pop(context);
-              _resetGame();
+              Navigator.of(context).pop();
+              _nextMatch();
             },
-            child: const Text(
-              'Restart',
-              style: TextStyle(fontSize: 18, color: Colors.blue),
-            ),
-          ),
+            child: const Text("Next"),
+          )
         ],
       ),
     );
   }
 
-  void _resetGame() {
+  void _showDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Center(
+          child: Text(
+            message,
+            style: const TextStyle(color: Colors.red),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              setState(() {
+                selectedKoreanIndex = null;
+                selectedEnglishIndex = null;
+              });
+            },
+            child: const Text("Try Again"),
+          )
+        ],
+      ),
+    );
+  }
+
+  // Move to the next match
+  void _nextMatch() {
     setState(() {
-      _level = 1;
-      _correctAnswersInCategory = 0;
-      _score = 0;
-      _pointsToNextLevel = _questionsNeededForLevelUp;
+      if (korean.isNotEmpty) {
+        korean.removeAt(selectedKoreanIndex!);
+        english.removeAt(selectedEnglishIndex!);
+        selectedKoreanIndex = null;
+        selectedEnglishIndex = null;
+        english.shuffle();
+      }
+
+      // Check if the game is complete
+      if (korean.isEmpty) {
+        _showCompletionDialog();
+      }
     });
+  }
+
+  // Show the completion dialog
+  void _showCompletionDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text(
+          "WOW! 🎉",
+          style: TextStyle(color: Colors.green),
+        ),
+        content: Text(
+          "You've completed all the matches with a score of $score.",
+          style: TextStyle(color: Colors.green),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              await _saveAchievement("Completed Food Matching Game");
+              Navigator.of(context).pop();
+            },
+            child: const Text("Okay"),
+          )
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text('Gamified Learning')),
-        backgroundColor: Colors.blueAccent,
-      ),
-      body: Container(
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Score: $_score',
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Level: $_level',
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue),
+            const SizedBox(height: 16),
+            Center(
+              child: const Text(
+                "Match the Korean food with its English translation:",
+                style: TextStyle(fontSize: 16),
+              ),
             ),
             const SizedBox(height: 30),
             Text(
-              question.text,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-              textAlign: TextAlign.center,
+              "Score: $score", // Display the current score
+              style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.redAccent),
             ),
-            const SizedBox(height: 20),
-            Column(
-              children: question.options.map((option) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: ElevatedButton(
-                    onPressed: () => _checkAnswer(option, question.correctAnswer),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      textStyle: const TextStyle(fontSize: 18),
+            Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: List.generate(korean.length, (index) {
+                          return _buildFoodTile(
+                            korean[index],
+                            selectedKoreanIndex == index,
+                            () => _selectKorean(index),
+                          );
+                        }),
+                      ),
                     ),
-                    child: Text(option),
                   ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 20),
-            LinearProgressIndicator(
-              value: _correctAnswersInCategory / _questionsNeededForLevelUp,
-              backgroundColor: Colors.grey[300],
-              valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Correct Answers: $_correctAnswersInCategory / $_questionsNeededForLevelUp',
-              style: const TextStyle(fontSize: 16),
+                  const Spacer(),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: List.generate(english.length, (index) {
+                          return _buildFoodTile(
+                            english[index],
+                            selectedEnglishIndex == index,
+                            () => _selectEnglish(index),
+                          );
+                        }),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
     );
   }
-}
 
-class Question {
-  final String text;
-  List<String> options;
-  final String correctAnswer;
-
-  Question(this.text, this.options, this.correctAnswer){
-    this.options = List.from(options)..shuffle(Random()); // Shuffle the answers
-     }
+  Widget _buildFoodTile(String food, bool isSelected, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 4),
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.blueAccent : Colors.red[200],
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: isSelected ? Colors.blue : Colors.black,
+            width: 2,
+          ),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          food,
+          style: const TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
 }
