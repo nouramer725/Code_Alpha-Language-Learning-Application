@@ -75,7 +75,7 @@ class _FoodMatchingGameState extends State<FoodMatchingGame> {
         child: Center(
           child: Text(
             title,
-            style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+            style: TextStyle( fontSize: 17, fontWeight: FontWeight.bold),
           ),
         ),
       ),
