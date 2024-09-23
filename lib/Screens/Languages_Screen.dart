@@ -70,18 +70,19 @@ class LanguagesScreen extends StatelessWidget {
   ];
 
   final List<String> youtubeLinks = [
-    "https://youtu.be/4CJ8GkKSR_E?si=PwmlnBOc3Q6WoJpY", // Add actual links here
-    "https://youtu.be/1A5YQ0H5dZg?si=Tbe1UreCnoiukA8L",
-    "https://youtu.be/6jdX2qOkU5M?si=mP_bkFxjYLTpoYiB",
-    "https://youtu.be/TUSNTV7VkcI?si=BayCLJiVhcNLXSAk",
-    "https://youtu.be/VfekBGYRx0o?si=2t-lapOV15SNRqrx",
-    "https://youtu.be/7al4CpkrBLA?si=YssImmmvCsak5xdS",
-    "https://youtu.be/7JeCqgeCRwo?si=-rJtlYEYVZjEm3rl",
-    "https://youtu.be/aNJ_18Y5FVE?si=IDRWK3ucEVI_TSx3",
-    "https://youtube.com/playlist?list=PLEkblciwzGWRIY6dC_tvu4MwYpLG7Vfqw&si=HCppGGPl8yE8cVwJ",
-    "https://youtu.be/GLAVtZTfNmQ?si=5fZbldnAqUFPwQ52",
-    "https://youtu.be/RzQQAs_PuZw?si=qItT2MvpDFpcwyJc"
+    "https://youtu.be/4CJ8GkKSR_E?si=PwmlnBOc3Q6WoJpY", // Vowels
+    "https://youtu.be/1A5YQ0H5dZg?si=Tbe1UreCnoiukA8L", // Consonants
+    "https://youtu.be/6jdX2qOkU5M?si=mP_bkFxjYLTpoYiB", // Characters
+    "https://youtu.be/TUSNTV7VkcI?si=BayCLJiVhcNLXSAk", // Basic Sentences
+    "https://youtu.be/VfekBGYRx0o?si=96Z6GkWqWz9v7__A", // Food
+    "https://youtu.be/rKPz5E9P-30?si=orZaOcEllPf-2iLT", // Family Members
+    "https://youtu.be/K7dgMVKPTHw?si=q_Uoc8lEZMckIDZ-", // Basic Verbs
+    "https://youtu.be/aNJ_18Y5FVE?si=gx1CauBN7b4mcOBE", // Past and Future Plans
+    "https://www.youtube.com/playlist?list=PL6D-YTosvGYoafH6RdvZrAc5iURh6gJ51", // Intermediate Grammar
+    "https://youtu.be/hUSU4WQguTw?si=5llDZELNHzUZtK5P", // Introduce Yourself
+    "https://youtu.be/RzQQAs_PuZw?si=slDO1mJFNPrTPmPp"  // Greet People
   ];
+
 
   Future<void> _launchURL(String url) async {
     if (await canLaunch(url)) {

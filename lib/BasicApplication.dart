@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:learning/Screens/Achievement%20screen.dart';
 import 'package:learning/Screens/Community.dart';
+import 'package:learning/Screens/Games.dart';
 import 'package:learning/Screens/Languages_Screen.dart';
 import 'package:learning/Screens/quizzez.dart';
 import 'package:learning/Screens/Fun_Screen.dart';
 
-import 'Screens/Games.dart';
 
 class Basicapplication extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -60,61 +60,61 @@ class _HomeScreenState extends State<Basicapplication> {
         onTap: _onItemTapped,
         selectedItemColor: Colors.red, // Active icon color
         unselectedItemColor: Colors.grey, // Inactive icon color
-        selectedIconTheme: IconThemeData(size: 30), // Increase size of selected icon
-        unselectedIconTheme: IconThemeData(size: 25), // Normal size for unselected icons
+        selectedIconTheme: const IconThemeData(size: 30), // Increase size of selected icon
+        unselectedIconTheme: const IconThemeData(size: 25), // Normal size for unselected icons
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: _selectedIndex ==0
                 ? Transform.translate(
-              offset: Offset(0, 0), // Raise the selected icon
-              child: Text('한', style: TextStyle(fontSize: 24,)),
+              offset: const Offset(0, 0), // Raise the selected icon
+              child: const Text('한', style: TextStyle(fontSize: 24,)),
             )
-                : Text('한', style: TextStyle(fontSize: 24)),
+                : const Text('한', style: TextStyle(fontSize: 24)),
             label: 'Language',
           ),
           BottomNavigationBarItem(
             icon: _selectedIndex == 1
                 ? Transform.translate(
-              offset: Offset(0, 0), // Raise the selected icon
-              child: Icon(Icons.interests_sharp),
+              offset: const Offset(0, 0), // Raise the selected icon
+              child: const Icon(Icons.interests_sharp),
             )
-                : Icon(Icons.interests_sharp),
+                : const Icon(Icons.interests_sharp),
             label: 'Entertainment',
           ),
           BottomNavigationBarItem(
             icon: _selectedIndex == 2
                 ? Transform.translate(
-              offset: Offset(0, 0), // Raise the selected icon
-              child: Icon(Icons.quiz_outlined),
+              offset: const Offset(0, 0), // Raise the selected icon
+              child: const Icon(Icons.quiz_outlined),
             )
-                : Icon(Icons.quiz_outlined),
+                : const Icon(Icons.quiz_outlined),
             label: 'Quizzes',
           ),
           BottomNavigationBarItem(
             icon: _selectedIndex == 3
                 ? Transform.translate(
-              offset: Offset(0, 0), // Raise the selected icon
-              child: Icon(Icons.games),
+              offset: const Offset(0, 0), // Raise the selected icon
+              child: const Icon(Icons.games),
             )
-                : Icon(Icons.games),
+                : const Icon(Icons.games),
             label: 'Games',
           ),
           BottomNavigationBarItem(
             icon: _selectedIndex == 4
                 ? Transform.translate(
-              offset: Offset(0, 0), // Raise the selected icon
-              child: Icon(Icons.format_align_center_rounded),
+              offset: const Offset(0, 0), // Raise the selected icon
+              child: const Icon(Icons.format_align_center_rounded),
             )
-                : Icon(Icons.format_align_center_rounded),
+                : const Icon(Icons.format_align_center_rounded),
             label: 'Community',
           ),
           BottomNavigationBarItem(
             icon: _selectedIndex == 5
                 ? Transform.translate(
-              offset: Offset(0, 0), // Raise the selected icon
-              child: Icon(Icons.emoji_events),
+              offset: const Offset(0, 0), // Raise the selected icon
+              child: const Icon(Icons.emoji_events),
             )
-                : Icon(Icons.emoji_events),
+                : const Icon(Icons.emoji_events),
             label: 'Achievement',
           ),
         ],
