@@ -80,13 +80,12 @@ class GreetPeopleScreen extends StatelessWidget {
         title: Text('Korean Greetings'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
           itemCount: greetingList.length,
           itemBuilder: (context, index) {
             final greeting = greetingList[index];
             return ListTile(
-              leading: Icon(Icons.people_alt_rounded),
               title: Text(
                 greeting.krGreeting,
                 style: TextStyle(fontSize: 20),
