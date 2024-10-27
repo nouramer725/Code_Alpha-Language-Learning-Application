@@ -1,6 +1,6 @@
 {
-    "name": "learning",
-    "short_name": "learning",
+    "name": "language_learning_app",
+    "short_name": "language_learning_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

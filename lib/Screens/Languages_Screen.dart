@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:learning/widgets/beginner/Consonants.dart';
-import 'package:learning/widgets/intermidiate/Intermediate Grammar Screen.dart';
-import 'package:learning/widgets/beginner/Vowles.dart';
-import 'package:learning/widgets/intermidiate/family.dart';
-import 'package:learning/widgets/intermidiate/food.dart';
-import 'package:learning/widgets/advanced/introduce yourself.dart';
-import 'package:learning/widgets/intermidiate/verbs.dart';
+import '../widgets/advanced/introduce yourself.dart';
 import '../widgets/beginner/Basic sentences.dart';
 import '../widgets/beginner/Characters.dart';
 import '../widgets/advanced/Greet_people.dart';
+import '../widgets/beginner/Consonants.dart';
+import '../widgets/beginner/Vowles.dart';
+import '../widgets/intermidiate/Intermediate Grammar Screen.dart';
 import '../widgets/intermidiate/Past Events and Future Plans Screen.dart';
+import '../widgets/intermidiate/family.dart';
+import '../widgets/intermidiate/food.dart';
+import '../widgets/intermidiate/verbs.dart';
 
 class LanguagesScreen extends StatelessWidget {
 

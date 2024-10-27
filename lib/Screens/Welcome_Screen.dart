@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learning/BasicApplication.dart';
+
+import '../BasicApplication.dart';
 
 class WelcomeScreen extends StatelessWidget {
   final VoidCallback toggleTheme;

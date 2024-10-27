@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:learning/Quizez/CharactersQuiz.dart';
-import 'package:learning/Quizez/INtermidateQuiz.dart';
-import 'package:learning/Quizez/PastQuiz.dart';
-import 'package:learning/Quizez/VowelsQuizScreen.dart';
+import '../Quizez/CharactersQuiz.dart';
 import '../Quizez/ConsonantsQuizScreen.dart';
 import '../Quizez/FamilyQuizScreen.dart';
 import '../Quizez/FoodQuizScreen.dart';
 import '../Quizez/GreetingsQuizScreen.dart';
+import '../Quizez/INtermidateQuiz.dart';
 import '../Quizez/IntroduceYourselfQuizScreen.dart';
+import '../Quizez/PastQuiz.dart';
 import '../Quizez/SentencesQuizScreen.dart';
 import '../Quizez/VerbsQuizScreen.dart';
+import '../Quizez/VowelsQuizScreen.dart';
 
 class QuizHomePage extends StatelessWidget {
   final List<String> beginnerQuizTitles = [

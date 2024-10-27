@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:learning/Games/KoreanMatchingGameScreen.dart';
-import 'package:learning/Games/MATCHING.dart';
-import 'package:learning/Games/MemoryGameScreen.dart';
-import 'package:learning/Games/SpeedTypingGameScreen.dart';
-import 'package:learning/Games/TrueFalseGameScreen.dart';
 
+import '../Games/KoreanMatchingGameScreen.dart';
+import '../Games/MATCHING.dart';
+import '../Games/MemoryGameScreen.dart';
+import '../Games/SpeedTypingGameScreen.dart';
+import '../Games/TrueFalseGameScreen.dart';
 import '../Games/match char.dart';
 
 

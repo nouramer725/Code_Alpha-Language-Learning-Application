@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:learning/Screens/Achievement%20screen.dart';
-import 'package:learning/Screens/Community.dart';
-import 'package:learning/Screens/Games.dart';
-import 'package:learning/Screens/Languages_Screen.dart';
-import 'package:learning/Screens/quizzez.dart';
-import 'package:learning/Screens/Fun_Screen.dart';
+
+import 'Screens/Achievement screen.dart';
+import 'Screens/Community.dart';
+import 'Screens/Fun_Screen.dart';
+import 'Screens/Games.dart';
+import 'Screens/Languages_Screen.dart';
+import 'Screens/quizzez.dart';
+
 
 
 class Basicapplication extends StatefulWidget {

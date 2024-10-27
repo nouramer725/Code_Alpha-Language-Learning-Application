@@ -1,4 +1,4 @@
-name: learning
+name: language_learning_app
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.5.2
+  sdk: ^3.5.4
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -42,7 +42,6 @@ dependencies:
   flutter_bloc: ^8.1.4
   dio: ^5.5.0+1
   hexcolor: ^3.0.1
-  webview_flutter: ^4.9.0
   audioplayers: ^6.1.0
   url_launcher: ^6.1.7  # Use the latest stable version
 
@@ -70,23 +69,22 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/images/
-     - assets/images/movies/
-     - assets/images/series/
-     - assets/images/novels/
-     - assets/images/family_members/
-     - assets/images/food/
-     - assets/sounds/vowels/
-     - assets/sounds/cons/
-     - assets/sounds/sentences/
-     - assets/sounds/food/
-     - assets/sounds/family_members/
-     - assets/sounds/greetings/
-     - assets/sounds/introduce/
-     - assets/sounds/verbs/
-     - assets/sounds/inter/
-     - assets/sounds/past/
-
+    - assets/images/
+    - assets/images/movies/
+    - assets/images/series/
+    - assets/images/novels/
+    - assets/images/family_members/
+    - assets/images/food/
+    - assets/sounds/vowels/
+    - assets/sounds/cons/
+    - assets/sounds/sentences/
+    - assets/sounds/food/
+    - assets/sounds/family_members/
+    - assets/sounds/greetings/
+    - assets/sounds/introduce/
+    - assets/sounds/verbs/
+    - assets/sounds/inter/
+    - assets/sounds/past/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
